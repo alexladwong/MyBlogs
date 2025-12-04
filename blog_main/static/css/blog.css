@@ -1,69 +1,170 @@
-/* stylelint-disable selector-list-comma-newline-after */
-
-.blog-header {
-  border-bottom: 1px solid #e5e5e5;
+/* HERO SECTION */
+.hero-section {
+  padding: 2rem 0 1rem;
 }
 
-.blog-header-logo {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
-  font-size: 2.25rem;
+
+
+.hero-title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-.blog-header-logo:hover {
+.hero-subtitle {
+  font-size: 1rem;
+  color: #555;
+  max-width: 34rem;
+}
+
+.hero-card {
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #ffffff, #f5f7fb);
+  border: 1px solid #e4e7f2;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* POST CARD GRID */
+.blog-card {
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
+}
+
+.blog-card .card-img-top {
+  height: 190px;
+  object-fit: cover;
+}
+
+.blog-card .card-title a {
+  color: #222;
+}
+
+.blog-card .card-title a:hover {
+  color: #28a745;
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
+/* MOBILE DRAWER */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s ease;
+  z-index: 1040;
 }
 
-.display-4 {
-  font-size: 2.5rem;
-}
-@media (min-width: 768px) {
-  .display-4 {
-    font-size: 3rem;
-  }
-}
-
-.flex-auto {
-  flex: 0 0 auto;
-}
-
-.h-250 { height: 250px; }
-@media (min-width: 768px) {
-  .h-md-250 { height: 250px; }
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 260px;
+  max-width: 80%;
+  background: #ffffff;
+  box-shadow: 4px 0 20px rgba(15, 23, 42, 0.25);
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+  z-index: 1041;
+  padding: 1rem 1.25rem;
 }
 
-/* Pagination */
-.blog-pagination {
-  margin-bottom: 4rem;
+.mobile-drawer-header {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 0.75rem;
 }
 
-/*
- * Blog posts
- */
-.blog-post {
-  margin-bottom: 4rem;
-}
-.blog-post-title {
-  font-size: 2.5rem;
-}
-.blog-post-meta {
-  margin-bottom: 1.25rem;
-  color: #727272;
+.mobile-drawer-nav a {
+  color: #333;
+  font-size: 0.95rem;
 }
 
-/*
- * Footer
- */
-.blog-footer {
-  padding: 2.5rem 0;
-  color: #727272;
-  text-align: center;
-  background-color: #f9f9f9;
-  border-top: .05rem solid #e5e5e5;
+.mobile-drawer-nav a:hover {
+  color: #28a745;
+  text-decoration: none;
 }
-.blog-footer p:last-child {
-  margin-bottom: 0;
+
+/* Drawer open state */
+.drawer-open .mobile-drawer {
+  transform: translateX(0);
+}
+.drawer-open .drawer-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* THEME TOGGLE ICONS */
+.theme-icon-dark,
+.theme-icon-light {
+  transition: opacity 0.2s ease;
+}
+
+/* LIGHT / DARK MODE */
+body.theme-dark {
+  background-color: #0f172a;
+  color: #e5e7eb;
+}
+
+body.theme-dark .blog-header {
+  background: linear-gradient(135deg, #020617, #0f172a);
+  border-bottom-color: #1e293b;
+}
+
+body.theme-dark .blog-footer {
+  background-color: #020617;
+  border-top-color: #1e293b;
+  color: #9ca3af;
+}
+
+body.theme-dark .blog-footer a {
+  color: #38bdf8;
+}
+
+body.theme-dark .blog-footer a:hover {
+  color: #0ea5e9;
+}
+
+body.theme-dark .hero-card,
+body.theme-dark .blog-card {
+  background: #020617;
+  border-color: #1e293b;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+}
+
+body.theme-dark .blog-card .card-title a {
+  color: #e5e7eb;
+}
+
+body.theme-dark .blog-card .card-title a:hover {
+  color: #38bdf8;
+}
+
+body.theme-dark .nav-scroller {
+  border-bottom-color: #1e293b;
+}
+
+body.theme-dark .nav-scroller .nav a {
+  color: #9ca3af;
+}
+
+body.theme-dark .nav-scroller .nav a:hover {
+  color: #38bdf8;
+}
+
+body.theme-dark .mobile-drawer {
+  background: #020617;
+}
+
+body.theme-dark .mobile-drawer-nav a {
+  color: #e5e7eb;
 }

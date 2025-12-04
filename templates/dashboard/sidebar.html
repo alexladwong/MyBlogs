@@ -1,11 +1,73 @@
-<div class="col-md-3">
-    <div class="nav flex-column nav-pills bg-light" aria-orientation="vertical">
-        <a href="{% url 'dashboard' %}" class="nav-link text-dark {% if '/dashboard/' == request.path %}bg-success{% endif %}">Dashboard</a>
+<style>
+
+    .dashboard-sidebar {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.dashboard-sidebar .nav-link {
+    font-weight: 500;
+    color: #333 !important;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    transition: all 0.2s ease;
+}
+
+.dashboard-sidebar .nav-link:hover {
+    background: #e9f7ef;
+    color: #28a745 !important;
+}
+
+.dashboard-sidebar .nav-link.active {
+    background: #28a745 !important;
+    color: #fff !important;
+    font-weight: 600;
+}
+
+.dashboard-sidebar .nav-link i {
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+    
+</style>
+
+<div class="col-md-3 mb-4">
+    <div class="dashboard-sidebar nav flex-column nav-pills">
+
+        <!-- Dashboard -->
+        <a href="{% url 'dashboard' %}"
+           class="nav-link d-flex align-items-center {% if request.path == '/dashboard/' %}active{% endif %}">
+            <i class="fa fa-home mr-2"></i> Dashboard
+        </a>
+
         {% if perms.auth.view_user %}
-        <a href="{% url 'users' %}" class="nav-link text-dark {% if '/users/' in request.path %}bg-success{% endif %}">Users</a>
+        <!-- Users -->
+        <a href="{% url 'users' %}"
+           class="nav-link d-flex align-items-center {% if '/users/' in request.path %}active{% endif %}">
+            <i class="fa fa-users mr-2"></i> Users
+        </a>
         {% endif %}
-        <a href="{% url 'categories' %}" class="nav-link text-dark {% if '/categories/' in request.path %}bg-success{% endif %}">Categories</a>
-        <a href="{% url 'posts' %}" class="nav-link text-dark {% if '/posts/' in request.path %}bg-success{% endif %}">Posts</a>
-        <a href="" class="nav-link text-dark">Logout</a>
+
+        <!-- Categories -->
+        <a href="{% url 'categories' %}"
+           class="nav-link d-flex align-items-center {% if '/categories/' in request.path %}active{% endif %}">
+            <i class="fa fa-folder-open mr-2"></i> Categories
+        </a>
+
+        <!-- Posts -->
+        <a href="{% url 'posts' %}"
+           class="nav-link d-flex align-items-center {% if '/posts/' in request.path %}active{% endif %}">
+            <i class="fa fa-file-text-o mr-2"></i> Posts
+        </a>
+
+        <!-- Logout -->
+        <a href="{% url 'logout' %}" class="nav-link d-flex align-items-center text-danger">
+            <i class="fa fa-sign-out mr-2"></i> Logout
+        </a>
+
     </div>
 </div>

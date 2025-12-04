@@ -1,4 +1,3 @@
-<!-- Header Part -->
 {% load static %}
 
 <!DOCTYPE html>
@@ -7,57 +6,224 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blogs</title>
-    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
-    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  </head>
-<body>
-    <div class="container">
-      <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-          <div class="col-4 pt-1">
-            <a class="blog-header-logo text-dark" href="/">MyBlogs</a>
-          </div>
-          <div class="col-4">
-            <form action="{% url 'search' %}" method="GET">
-              <div class="input-group">
-                <input class="form-control" type="text" name="keyword" value="{{ keyword }}" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                <button type="submit" class="btn btn-success btn-sm  rounded" id="button-search" type="button">Go!</button>
-            </div>
-            </form>
-          </div>
-          <div class="col-4 d-flex justify-content-end align-items-center">
-            {% if not user.is_authenticated %}
-            <a class="btn btn-sm btn-success rounded" href="{% url 'login' %}">Create Posts</a> &nbsp;
-            
-            {% else %}
-            <span><a href="{% url 'dashboard' %}">Dashboard</a></span>
-            &emsp;
-            
-            <span><a href="{% url 'logout' %}">Logout</a></span>
-            {% endif %}
-          </div>
-        </div>
-      </header>
+    <title>{% block title %}My Blogs{% endblock %}</title>
 
-      <div class="nav-scroller py-1 mb-2">
-        <nav class="nav d-flex justify-content-between">
-          {% for cat in categories %}
-          <a class="p-2 text-muted" href="{% url 'posts_by_category' cat.id %}">{{ cat.category_name }}</a>
-          {% endfor %}
-        </nav>
+    <link rel="icon" href="{% static 'images/myBlogo.png' %}" type="image/x-icon">
+
+    <!-- Bootstrap 4 CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+
+    <!-- Custom Blog CSS -->
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <div class="container">
+
+    <!-- HEADER -->
+    <header class="blog-header py-3 mb-3 border-bottom shadow-sm">
+      <div class="row align-items-center">
+
+        <!-- Left: Logo + Mobile menu toggle -->
+        <div class="col-6 col-md-3 d-flex align-items-center">
+          <!-- Mobile menu toggle -->
+          <button class="btn btn-link d-md-none mr-2 p-0" id="mobileMenuToggle" aria-label="Open menu">
+            <i class="fa fa-bars fa-lg"></i>
+          </button>
+
+          <a class="blog-header-logo text-dark" href="/">
+            <img 
+              class="img-fluid"
+              src="{% static 'images/myBlogo.png' %}" 
+              alt="MyBlog Logo"
+              width="44" 
+              height="44"
+              style="border-radius: 50%; object-fit: cover; margin-right: .4rem;"
+            >
+            <span class="blog-title-text d-none d-sm-inline">MyBlog</span>
+          </a>
+        </div>
+
+        <!-- Middle: Search -->
+        <div class="col-12 col-md-5 order-3 order-md-2 mt-3 mt-md-0">
+          <form action="{% url 'search' %}" method="GET">
+            <div class="input-group">
+              <input class="form-control" type="text" name="keyword" value="{{ keyword }}" 
+                     placeholder="Search posts, tags, authors..." aria-label="Search">
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-success">
+                  <i class="fa fa-search d-inline d-md-none"></i>
+                  <span class="d-none d-md-inline">Search</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right: Auth + Theme toggle -->
+        <div class="col-6 col-md-4 d-flex justify-content-end align-items-center order-2 order-md-3">
+
+          <!-- Light/Dark mode toggle -->
+          <button class="btn btn-outline-secondary btn-sm mr-2 rounded-pill" id="themeToggle" type="button">
+            <i class="fa fa-moon-o theme-icon-dark"></i>
+            <i class="fa fa-sun-o theme-icon-light d-none"></i>
+          </button>
+
+          {% if not user.is_authenticated %}
+            <a class="btn btn-success btn-sm rounded-pill px-3 header-cta-btn" href="{% url 'login' %}">
+              <i class="fa fa-pencil mr-1"></i> 
+              <span class="d-none d-sm-inline">Create Posts</span>
+              <span class="d-inline d-sm-none">Post</span>
+            </a>
+          {% else %}
+            <div class="d-flex align-items-center header-user-links">
+              <a class="mr-3" href="{% url 'dashboard' %}">
+                <i class="fa fa-user-circle-o mr-1"></i> Dashboard
+              </a>
+              <a href="{% url 'logout' %}">
+                <i class="fa fa-sign-out mr-1"></i> Logout
+              </a>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+    </header>
+
+    <!-- MOBILE DRAWER & OVERLAY -->
+    <div id="drawerOverlay" class="drawer-overlay"></div>
+
+    <aside id="mobileDrawer" class="mobile-drawer">
+      <div class="mobile-drawer-header d-flex justify-content-between align-items-center">
+        <span class="font-weight-bold">Menu</span>
+        <button class="btn btn-link p-0" id="mobileMenuClose" aria-label="Close menu">
+          <i class="fa fa-times fa-lg"></i>
+        </button>
       </div>
 
-<!-- Main Content Part -->
-{% block content %}
+      <nav class="mobile-drawer-nav">
+        <p class="text-uppercase text-muted small mb-2">Categories</p>
+        {% if categories %}
+          {% for cat in categories %}
+            <a class="d-block py-1" href="{% url 'posts_by_category' cat.id %}">{{ cat.category_name }}</a>
+          {% endfor %}
+        {% else %}
+          <span class="text-muted small">No categories yet</span>
+        {% endif %}
 
-{% endblock %}
+        <hr>
 
-<!-- Footer Part -->
-<footer class="blog-footer">
-    <p>My Blogs built with 💖 by <a href="https://ladwongdevelopers.dev/playground" target="_blank">KintuAlexLadwong</a></p>
-  </footer>
-  </body>
-  </html>
+        <p class="text-uppercase text-muted small mb-2">Account</p>
+        {% if not user.is_authenticated %}
+          <a class="d-block py-1" href="{% url 'login' %}">Login / Create Posts</a>
+        {% else %}
+          <a class="d-block py-1" href="{% url 'dashboard' %}">Dashboard</a>
+          <a class="d-block py-1" href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+      </nav>
+    </aside>
+
+    <!-- CATEGORY NAV SCROLLER -->
+    <div class="nav-scroller py-1 mb-2">
+      <nav class="nav d-flex justify-content-between">
+        {% for cat in categories %}
+          <a class="p-2 text-muted" href="{% url 'posts_by_category' cat.id %}">{{ cat.category_name }}</a>
+        {% endfor %}
+      </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    {% block content %}
+    {% endblock %}
+
+    <!-- FOOTER -->
+    <footer class="blog-footer">
+      <p>
+        My Blogs built with 💖 by 
+        <a href="https://ladwongdevelopers.dev/playground" target="_blank">KintuAlexLadwong</a>
+      </p>
+    </footer>
+
+  </div> <!-- /.container -->
+
+  <!-- JS: jQuery, Popper, Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+
+  <!-- Custom JS: mobile drawer + theme toggle -->
+  <script>
+    // Mobile drawer menu
+    (function() {
+      var body = document.body;
+      var toggle = document.getElementById('mobileMenuToggle');
+      var closeBtn = document.getElementById('mobileMenuClose');
+      var overlay = document.getElementById('drawerOverlay');
+
+      function openDrawer() {
+        body.classList.add('drawer-open');
+      }
+
+      function closeDrawer() {
+        body.classList.remove('drawer-open');
+      }
+
+      if (toggle) toggle.addEventListener('click', openDrawer);
+      if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+      if (overlay) overlay.addEventListener('click', closeDrawer);
+    })();
+
+    // Light / Dark mode toggle with localStorage
+    (function() {
+      var body = document.body;
+      var toggle = document.getElementById('themeToggle');
+      var iconDark = document.querySelector('.theme-icon-dark');
+      var iconLight = document.querySelector('.theme-icon-light');
+
+      if (!toggle) return;
+
+      function applyTheme(theme) {
+        if (theme === 'dark') {
+          body.classList.add('theme-dark');
+          iconDark && iconDark.classList.add('d-none');
+          iconLight && iconLight.classList.remove('d-none');
+        } else {
+          body.classList.remove('theme-dark');
+          iconDark && iconDark.classList.remove('d-none');
+          iconLight && iconLight.classList.add('d-none');
+        }
+        localStorage.setItem('myblog-theme', theme);
+      }
+
+      // Initial theme (from storage or system preference)
+      var saved = localStorage.getItem('myblog-theme');
+      if (!saved) {
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        saved = prefersDark ? 'dark' : 'light';
+      }
+      applyTheme(saved);
+
+      // Toggle click
+      toggle.addEventListener('click', function() {
+        var current = body.classList.contains('theme-dark') ? 'dark' : 'light';
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+      });
+    })();
+  </script>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

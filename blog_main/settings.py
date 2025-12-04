@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "jazzmin",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -137,3 +138,169 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+# Jazzmin Settings
+# Custom Admin Settings
+JAZZMIN_SETTINGS = {
+    "site_title": "MyBlog",
+    "site_header": "MyBlog",
+    "site_brand": "MyBlog ",
+    "site_icon": "img/logo.png",
+    "site_logo": "img/apple-touch-icon.png",
+    "welcome_sign": "Welcome To MyBlog",
+    "copyright": "MyBlog Inc",
+    "user_avatar": "img/logo.png",
+    "topmenu_links": [
+        {"name": "Dashboard", "url": "home", "permissions": ["auth.view_user"]},
+        {"model": "auth.User"},
+    ],
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "order_with_respect_to": [
+        "api",
+        "api.Post",
+        "api.Category",
+        "api.Comment",
+        "api.Bookmark",
+        "api.Notification",
+    ],
+    "icons": {
+        "admin.Accounts": "fas fa-file",
+
+        "auth": "fas fa-users-cog",
+        "auth.Accounts": "fas fa-user",
+
+        "api.User": "fas fa-user",
+        "api.Profile":"fas fa-address-card",
+        "api.Post":"fas fa-th",
+        "api.Category":"fas fa-tag",
+        "api.Comment":"fas fa-envelope",
+        "api.Notification":"fas fa-bell",
+        "api.Bookmark":"fas fa-heart",
+
+        
+    },
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-arrow-circle-right",
+    "related_modal_active": False,
+    
+    "custom_js": None,
+    "show_ui_builder": False,
+    
+    "changeform_format": "horizontal_tabs",
+    "changeform_format_overrides": {
+        "auth.user": "collapsible",
+        "auth.group": "vertical_tabs",
+    },
+    
+    "icons": {
+        "admin.LogEntry": "fas fa-admin",
+        
+        
+        "auth.user.Dashboard": "fas fa-dashboard",
+
+        "auth.Group": "fas fa-users-cog",
+        "auth.Accounts.EmailAddress": "fas fa-envelope",
+        
+        
+        # Accounts
+        "Accounts.PasswordResetCode": "fas fa-key",
+        "Accounts.SMSLOG": "fas fa-comment",
+        "Accounts.USER": "fas fa-users",
+        
+        
+        # Mysatarts
+        "Mystarts.Inquiry": "fas fa-question",
+        "Mystarts.Notification": "fas fa-bell",
+        "Mystarts.Quote": "fas fa-tower-cell",
+        "Mystarts.Subscriber": "fas fa-at",
+        
+
+
+        "newsfeed.SubscribedUser": "fas fa-at",
+
+        "addon.BasicAddon": "fas fa-cog",
+
+        # Orders
+        "Orders.OrderItem":"fas fa-cart-plus",
+        "Orders.ORDER":"fas fa-shopping-cart",
+        "Orders.SMSTEMPLATE": "fas fa-sms",
+        
+        # Products
+        "Products.PRODUCT":"fas fa-shop",
+        "Products.Category":"fas fa-tag",
+        
+        
+        "Sites.SITE":"fab fa-safari",
+        
+        # SocialAccount
+        "SocialAccount.SocialAccount":"fa-brands fa-google",
+        "SocialAccount.SocialApplicationToken":"fa fa-key",
+        "SocialAccount.SocialApplication":"fa fa-app",
+        
+        
+        "dataentry.Customer":"fas fa-user-tag",
+        "dataentry.Employee":"fas fa-user-tie",
+        "dataentry.Student":"fas fa-user-graduate",
+        
+        "emails.Developer":"fas fa-code",
+        "emails.EmailTracking":"fas fa-eye",
+        "emails.Email":"fas fa-envelope",
+        "emails.List":"fas fa-list",
+        "emails.Sent":"fas fa-paper-plane",
+        "emails.Emails":"fas fa-envelope",
+        "emails.Subscriber":"fas fa-users",
+        
+
+        "uploads.Upload":"fa fa-cloud-upload",
+    },
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-arrow-circle-right",
+    "related_modal_active": False,
+    
+    "custom_js": None,
+    "show_ui_builder": False,
+    
+    "changeform_format": "horizontal_tabs",
+    "changeform_format_overrides": {
+        "auth.user": "collapsible",
+        "auth.group": "vertical_tabs",
+    },
+}
+
+
+# Jazzmin Tweaks
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": True,
+    "footer_small_text": True,
+    "body_small_text": True,
+    "brand_small_text": True,
+    "brand_colour": "navbar-indigo",
+    "accent": "accent-primary",
+    "navbar": "navbar-indigo navbar-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": True,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-indigo",
+    "sidebar_nav_small_text": True,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": True,
+    "sidebar_nav_compact_style": True,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "darkly",
+    "dark_mode_theme": "superhero",
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-outline-info",
+        "warning": "btn-outline-warning",
+        "danger": "btn-outline-danger",
+        "success": "btn-outline-success"
+    },
+    "actions_sticky_top": True
+}
