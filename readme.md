@@ -20,7 +20,7 @@ This repository contains the source code for the *Django Blogging System* premiu
 - Django 4.x (see `requirements.txt`) - always use latest version 
 - A virtual environment tool (`venv` / `virtualenv`)  
 - PostgreSQL / MySQL or SQLite for development
-- (Optional) nginx / gunicorn for production — [contact me](https://techwithalexladwong.com/contact/) for advanced deployments.
+- (Optional) nginx / gunicorn for production — [contact me](https://ladwongportfolio.vercel.app/contact) for advanced deployments.
 
 ## 🚀 Join My 8-Week Backend Developer Program  
 Become industry-ready in 8 weeks!  
