@@ -33,6 +33,6 @@ Become industry-ready in 8 weeks!
 </a>
 
 If you like this project, please support me by subscribing to my channel:  
-👉 **Tech With alexladwong** — https://www.youtube.com/@alexladwongkumar
+👉 **Tech With alexladwong** — https://www.youtube.com/@MilkyWay-y2k25
 
 All the best.# MyBlogs
